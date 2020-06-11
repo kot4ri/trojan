@@ -1,3 +1,7 @@
+# trojan-legend
+
+This version of Trojan supports manyuser mode using the legendsockssr API.
+
 # trojan
 
 [![Build Status](https://dev.azure.com/GreaterFire/Trojan-GFW/_apis/build/status/trojan-gfw.trojan?branchName=master)](https://dev.azure.com/GreaterFire/Trojan-GFW/_build/latest?definitionId=5&branchName=master)
