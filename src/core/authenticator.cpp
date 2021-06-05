@@ -50,7 +50,7 @@ bool Authenticator::auth(const string &password) {
     if (!is_valid_password(password)) {
         return false;
     }
-    if (mysql_query(&con, ("SELECT quota, download + upload, enable, plan FROM users WHERE password = '" + password + '\'').c_str())) {
+    if (mysql_query(&con, ("SELECT transfer_enable, d + u, enable FROM user WHERE passwd = '" + password + '\'').c_str())) {
         Log::log_with_date_time(mysql_error(&con), Log::ERROR);
         return false;
     }
@@ -67,8 +67,6 @@ bool Authenticator::auth(const string &password) {
     int64_t quota = atoll(row[0]);
     int64_t used = atoll(row[1]);
     int64_t enable = atoll(row[2]);
-	char plan = row[3][0];
-
     mysql_free_result(res);
     if (enable != 1) {
         return false;
@@ -87,7 +85,7 @@ void Authenticator::record(const string &password, uint64_t download, uint64_t u
     if (!is_valid_password(password)) {
         return;
     }
-    if (mysql_query(&con, ("UPDATE users SET download = download + " + to_string(download) + ", upload = upload + " + to_string(upload) + " WHERE password = '" + password + '\'').c_str())) {
+    if (mysql_query(&con, ("UPDATE user SET d = d + " + to_string(download) + ", u = u + " + to_string(upload) + " WHERE passwd = '" + password + '\'').c_str())) {
         Log::log_with_date_time(mysql_error(&con), Log::ERROR);
     }
 }
