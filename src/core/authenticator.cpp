@@ -70,7 +70,7 @@ bool Authenticator::auth(const string &password) {
 	char plan = row[3][0];
 
     mysql_free_result(res);
-    if (enable != 1)) {
+    if (enable != 1 || (plan != 'D' && plan != 'E')) {
         return false;
     }
     if (quota < 0) {
